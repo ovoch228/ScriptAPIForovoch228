@@ -2,7 +2,7 @@ local API = {}
 getgenv().seconds = 0 -- not seconds, now 100 millseconds
 --Lobby = 3260590327; Game: 5591597781
 
-if game.PlaceId == 3260590327 then
+
     function API:waitMap(map)
         for i, v in game.Players.LocalPlayer.PlayerGui:WaitForChild("ReactLobbyElevator"):GetDescendants() do
             while true do
@@ -12,8 +12,6 @@ if game.PlaceId == 3260590327 then
                     task.wait(0.05)
                 end
             end
-
-
 
             if v.Name == "title" and v.Text == map then
                 local elevator = v.Parent.Parent.Adornee.Parent
@@ -46,13 +44,13 @@ if game.PlaceId == 3260590327 then
             end
         end
     end
-end
 
-if game.PlaceId == 5591597781 then
+
+
     local topBar = game.Players.LocalPlayer.PlayerGui:WaitForChild("ReactGameTopGameDisplay").Frame
     local Wave = topBar.wave.container.value  
-    local difficultyUI = game.Players.LocalPlayer.PlayerGui.ReactGameDifficulty
-    local towers = workspace.Towers
+    local difficultyUI = game.Players.LocalPlayer.PlayerGui:WaitForChild("ReactGameDifficulty")
+    local towers = workspace:WaitForChild("Towers")
 
     while true do
         if difficultyUI.Frame.buttons.casualButton.Visible == false then
@@ -228,7 +226,7 @@ if game.PlaceId == 5591597781 then
             task.wait(0.03)
         end
 end
-end
+
 --other code
 
 
