@@ -1,11 +1,9 @@
 local API = {}
 getgenv().seconds = 0 -- not seconds, now 100 millseconds
 --Lobby = 3260590327; Game: 5591597781
-
-if game.PlaceId == 3260590327 then
     function API:waitMap(map)
+        while true do
         for i, v in game.Players.LocalPlayer.PlayerGui:WaitForChild("ReactLobbyElevator"):GetDescendants() do
-            while true do
                 if v.Name == "title" then
                     if v.Text == map then
                         
@@ -14,15 +12,11 @@ if game.PlaceId == 3260590327 then
     
                 local playerCountTable = {"2/4", "3/4", "4/4", "2/6", "3/6", "4/6"}
     
-                local args = {
-                    [1] = elevator
-                }
-                
-                game:GetService("ReplicatedStorage"):WaitForChild("Network"):WaitForChild("Elevators"):WaitForChild("RF:Enter"):InvokeServer(unpack(args))
                 for i, v in pairs(playerCountTable) do
                     while true do
                         if playerCountTable == v then
-                            game:GetService("ReplicatedStorage"):WaitForChild("Network"):WaitForChild("Elevators"):WaitForChild("RF:Leave"):InvokeServer()
+                            API:waitMap(map)
+                            break
                         else
                             local args = {
                                 [1] = elevator
@@ -41,22 +35,13 @@ if game.PlaceId == 3260590327 then
             end
         end
     end
-end
 
-if game.PlaceId == 5591597781 then
+
+
     local topBar = game.Players.LocalPlayer.PlayerGui:WaitForChild("ReactGameTopGameDisplay").Frame
     local Wave = topBar.wave.container.value  
     local difficultyUI = game.Players.LocalPlayer.PlayerGui:WaitForChild("ReactGameDifficulty")
     local towers = workspace:WaitForChild("Towers")
-
-    while true do
-        if difficultyUI.Frame.buttons.casualButton.Visible == false then
-            break
-        else
-            task.wait(0.03)
-        end
-        task.wait(0.04)
-    end
 
     function API:Start()
         while true do
@@ -223,7 +208,7 @@ if game.PlaceId == 5591597781 then
             task.wait(0.03)
         end
 end
-end
+
 
 
 return API
