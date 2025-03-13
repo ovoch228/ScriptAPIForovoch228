@@ -2,6 +2,7 @@ local API = {}
 getgenv().seconds = 0 -- not seconds, now 100 millseconds
 --Lobby = 3260590327; Game: 5591597781
     function API:waitMap(map)
+        if game.PlaceId == 3260590327 then
         while true do
         for i, v in game.Players.LocalPlayer.PlayerGui:WaitForChild("ReactLobbyElevator"):GetDescendants() do
                 if v.Name == "title" then
@@ -35,6 +36,7 @@ getgenv().seconds = 0 -- not seconds, now 100 millseconds
             end
         end
     end
+end
 
 
 
@@ -44,6 +46,7 @@ getgenv().seconds = 0 -- not seconds, now 100 millseconds
     local towers = workspace:WaitForChild("Towers")
 
     function API:Start()
+        if game.PlaceId == 5591597781 then
         while true do
             if difficultyUI.Frame.buttons.casualButton.Visible == false then
                 break
@@ -66,8 +69,10 @@ getgenv().seconds = 0 -- not seconds, now 100 millseconds
 
         Wave:GetPropertyChangedSignal("Text"):Connect(startSecundomer)
     end
+end
 
     function API:Difficulty(diff)
+        if game.PlaceId == 5591597781 then
         local args = {
             [1] = "Difficulty",
             [2] = "Vote",
@@ -83,8 +88,10 @@ getgenv().seconds = 0 -- not seconds, now 100 millseconds
         
         game:GetService("ReplicatedStorage"):WaitForChild("RemoteFunction"):InvokeServer(unpack(args))    
     end
+end
 
     function API:Place(tower, index, x, y, z, wave, seconds)
+        if game.PlaceId == 5591597781 then
         while true do
             if Wave.Text == tostring(wave) and getgenv().seconds == seconds then
                 local args = {
@@ -112,12 +119,11 @@ getgenv().seconds = 0 -- not seconds, now 100 millseconds
         end
             task.wait(0.03)
         end
-
-
-        
     end
+end
 
     function API:Upgrade(index, wave, seconds)
+        if game.PlaceId == 5591597781 then
         while true do
             if Wave.Text == tostring(wave) and getgenv().seconds == seconds then
                 for i, v in towers:GetDescendants() do
@@ -142,8 +148,10 @@ getgenv().seconds = 0 -- not seconds, now 100 millseconds
             task.wait(0.03)
         end
     end
+end
 
     function API:Target(index, target, wave, seconds)
+        if game.PlaceId == 5591597781 then
         while true do
             if Wave.Text == tostring(wave) and getgenv().seconds == seconds then
                 for i, v in towers:GetDescendants() do
@@ -168,6 +176,7 @@ getgenv().seconds = 0 -- not seconds, now 100 millseconds
             task.wait(0.03)
         end
     end
+end
 
     function API:Sell(index, wave, seconds)
         while true do
