@@ -46,10 +46,6 @@ end
 
 
 
-    local topBar = game.Players.LocalPlayer.PlayerGui:WaitForChild("ReactGameTopGameDisplay").Frame
-    local Wave = topBar.wave.container.value  
-    local difficultyUI = game.Players.LocalPlayer.PlayerGui:WaitForChild("ReactGameDifficulty")
-    local towers = workspace:WaitForChild("Towers")
 
     function API:Start()
         if game.PlaceId == 5591597781 then
