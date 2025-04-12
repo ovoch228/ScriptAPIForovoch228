@@ -8,41 +8,45 @@ function API:print(message)
     print(message)
 end
 
+toclipboard(tostring(game.PlaceId))
+
     function API:waitMap(map)
         if game.PlaceId == 3260590327 then
             print'used'
-        while true do
-        for i, v in game.Players.LocalPlayer.PlayerGui:WaitForChild("ReactLobbyElevator"):GetDescendants() do
-                if v.Name == "title" then
-                    if v.Text == map then
-                        
-                local elevator = v.Parent.Parent.Adornee.Parent
-                local playerCount = v.Parent.timer.players.Text
-    
-                local playerCountTable = {"2/4", "3/4", "4/4", "2/6", "3/6", "4/6"}
-    
-                for i, v in pairs(playerCountTable) do
-                    while true do
-                        if playerCountTable == v then
-                            API:waitMap(map)
-                            break
-                        else
-                            local args = {
-                                [1] = elevator
-                            }
+            while true do
+                for i, v in game.Players.LocalPlayer.PlayerGui:WaitForChild("ReactLobbyElevator"):GetDescendants() do
+                    if v.Name == "title" then
+                        if v.Text == map then
                             
-                            game:GetService("ReplicatedStorage"):WaitForChild("Network"):WaitForChild("Elevators"):WaitForChild("RF:Enter"):InvokeServer(unpack(args))
-                            task.wait(0.03)
-                        end 
+                    local elevator = v.Parent.Parent.Adornee.Parent
+                    local playerCount = v.Parent.timer.players.Text
+        
+                    local playerCountTable = {"2/4", "3/4", "4/4", "2/6", "3/6", "4/6"}
+        
+                    for i, v in pairs(playerCountTable) do
+                        while true do
+                            if playerCountTable == v then
+                                API:waitMap(map)
+                                break
+                            else
+                                local args = {
+                                    [1] = elevator
+                                }
+                                
+                                game:GetService("ReplicatedStorage"):WaitForChild("Network"):WaitForChild("Elevators"):WaitForChild("RF:Enter"):InvokeServer(unpack(args))
+                                task.wait(0.03)
+                            end 
+                            task.wait(0.05)
+                        end
+                    end
+                        end
+                    else
                         task.wait(0.05)
-                    end
-                end
-                    end
-                else
-                    task.wait(0.05)
                 end
             end
         end
+    else
+        --
     end
 end
 
@@ -51,27 +55,29 @@ end
 
     function API:Start()
         if game.PlaceId == 5591597781 then
-        while true do
-            if game.Players.LocalPlayer.PlayerGui.ReactGameDifficulty.Frame.buttons.casualButton.Visible == false then
-                break
-            else
-                task.wait(0.03)
+            while true do
+                if game.Players.LocalPlayer.PlayerGui.ReactGameDifficulty.Frame.buttons.casualButton.Visible == false then
+                    break
+                else
+                    task.wait(0.03)
+                end
             end
-        end
 
         local function startSecundomer()
             getgenv().seconds = 0
             local start = DateTime.now().UnixTimestampMillis
         
             spawn(function()
-                while true do
+                game:GetService("RunService").Heartbeat:Connect(function()
                     getgenv().seconds = DateTime.now().UnixTimestampMillis - start
-                    task.wait(0.04)
-                end
+                end)
             end)
         end
 
-        game.Players.LocalPlayer.PlayerGui.ReactGameTopGameDisplay.Frame.wave.container.value:GetPropertyChangedSignal("Text"):Connect(startSecundomer)
+        game.Players.LocalPlayer.PlayerGui.ReactGameTopGameDisplay.Frame.wave.container.value:GetPropertyChangedSignal("Text"):Connect(function()
+            print("new Wave")
+            startSecundomer()
+        end)
     end
 end
 
@@ -225,3 +231,73 @@ end
 
 
 return API
+--other code
+
+
+--[[
+
+local args = {
+    [1] = "Difficulty",
+    [2] = "Ready"
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteFunction"):InvokeServer(unpack(args))
+
+
+local args = {
+    [1] = "Difficulty",
+    [2] = "Vote",
+    [3] = "Easy"
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteFunction"):InvokeServer(unpack(args))
+
+local args = {
+    [1] = "Multiplayer",
+    [2] = "v2:start",
+    [3] = {
+        ["difficulty"] = "Easy",
+        ["mode"] = "survival",
+        ["count"] = 1
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteFunction"):InvokeServer(unpack(args))
+
+
+ ..Tower..", "..Position.X..", "..Position.Y..", "..Position.Z..", "..Wave..", "..getgenv().seconds.."\n");
+                
+
+    local args = {
+        [1] = "Troops",
+        [2] = "Pl\208\176ce",
+        [3] = {
+            ["Rotation"] = CFrame.new(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),
+            ["Position"] = Vector3.new(8.867898941040039, 1.0000044107437134, -27.135082244873047)
+        },
+        [4] = "Scout"
+    }
+
+    game:GetService("ReplicatedStorage"):WaitForChild("RemoteFunction"):InvokeServer(unpack(args))
+
+        if args[2] == "Pl\208\176ce" then
+            local addedTower
+            local Tower = args[4]
+            local Position = args[3].Position
+
+            addedTower = towers.ChildAdded:Connect(function(tower)
+                totalPlacedTowers = totalPlacedTowers + 1
+                local indexTower = totalPlacedTowers
+                local Index = Instance.new("IntValue", tower)
+                Index.Value = indexTower
+                Index.Name = "index"
+                
+                appendfile(getgenv().StratName..".txt", getgenv().APIVar..":Place("..Tower..", "..Position.X..", "..Position.Y..", "..Position.Z..", "..Wave..", "..getgenv().seconds.."\n");
+                LastLog.Text = "Placed Tower:" .. args[4]
+
+                addedTower:Disconnect()
+            end)
+            print(addedTower)
+]]
+
+
