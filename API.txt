@@ -67,9 +67,9 @@ end
             local start = DateTime.now().UnixTimestampMillis
         
             spawn(function()
-                game:GetService("RunService").Heartbeat:Connect(function()
-                    getgenv().seconds = DateTime.now().UnixTimestampMillis - start
-                end)
+                while task.wait(0.1) do
+                    getgenv().seconds = start - DateTime.now().UnixTimestampMillis
+                end
             end)
         end
 
