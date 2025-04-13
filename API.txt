@@ -8,7 +8,6 @@ function API:print(message)
     print(message)
 end
 
-toclipboard(tostring(game.PlaceId))
 
     function API:waitMap(map)
         if game.PlaceId == 3260590327 then
@@ -102,32 +101,34 @@ end
 
     function API:Place(tower, index, x, y, z, wave, seconds)
         if game.PlaceId == 5591597781 then
-        while true do
-            if game.Players.LocalPlayer.PlayerGui.ReactGameTopGameDisplay.Frame.wave.container.value.Text == tostring(wave) and getgenv().seconds == seconds then
-                local args = {
-                    [1] = "Troops",
-                    [2] = "Pl\208\176ce",
-                    [3] = {
-                        ["Rotation"] = CFrame.new(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),
-                        ["Position"] = Vector3.new(x, y, z)
-                    },
-                    [4] = tower
-                }
-            
-                game:GetService("ReplicatedStorage"):WaitForChild("RemoteFunction"):InvokeServer(unpack(args))
-                local addedTower
-                addedTower = workspace.Towers.ChildAdded:Connect(function(tower)
-                    local Index = Instance.new("IntValue", tower)
-                    Index.Value = index
-                    Index.Name = "index"
-            
-                    addedTower:Disconnect()
-                end) 
-                break
-            else
-            task.wait(0.03)
-        end
-            task.wait(0.03)
+            while true do
+                if game.Players.LocalPlayer.PlayerGui.ReactGameTopGameDisplay.Frame.wave.container.value.Text == tostring(wave) and getgenv().seconds == seconds then
+                    local args = {
+                        [1] = "Troops",
+                        [2] = "Pl\208\176ce",
+                        [3] = {
+                            ["Rotation"] = CFrame.new(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),
+                            ["Position"] = Vector3.new(x, y, z)
+                        },
+                        [4] = tower
+                    }
+                
+                    game:GetService("ReplicatedStorage"):WaitForChild("RemoteFunction"):InvokeServer(unpack(args)) 
+
+                    local addedTower
+                    addedTower = workspace.Towers.ChildAdded:Connect(function(tower)
+                        local Index = Instance.new("IntValue", tower)
+                        Index.Value = index
+                        Index.Name = "index"
+                
+                        addedTower:Disconnect()
+                    end) 
+
+                    break
+                else
+                task.wait(0.03)
+            end
+                task.wait(0.03)
         end
     end
 end
