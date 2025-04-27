@@ -110,7 +110,7 @@ end
         while true do
             if game.Players.LocalPlayer.PlayerGui.ReactGameTopGameDisplay.Frame.wave.container.value.Text == tostring(wave) and game:GetService("ReplicatedStorage").State.Timer.Time.Value == seconds then
                 for i, v in workspace.Towers:GetDescendants() do
-                    if v:IsA("IntValue") and v.Name == "index" and v.Value == index then
+                    if v.Name == "index" and v.Value == index then
                         local args = {
                             [1] = "Troops",
                             [2] = "Upgrade",
@@ -204,3 +204,73 @@ end
 
 
 return API
+--other code
+
+
+--[[
+
+local args = {
+    [1] = "Difficulty",
+    [2] = "Ready"
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteFunction"):InvokeServer(unpack(args))
+
+
+local args = {
+    [1] = "Difficulty",
+    [2] = "Vote",
+    [3] = "Easy"
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteFunction"):InvokeServer(unpack(args))
+
+local args = {
+    [1] = "Multiplayer",
+    [2] = "v2:start",
+    [3] = {
+        ["difficulty"] = "Easy",
+        ["mode"] = "survival",
+        ["count"] = 1
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteFunction"):InvokeServer(unpack(args))
+
+
+ ..Tower..", "..Position.X..", "..Position.Y..", "..Position.Z..", "..Wave..", "..getgenv().seconds.."\n");
+                
+
+    local args = {
+        [1] = "Troops",
+        [2] = "Pl\208\176ce",
+        [3] = {
+            ["Rotation"] = CFrame.new(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),
+            ["Position"] = Vector3.new(8.867898941040039, 1.0000044107437134, -27.135082244873047)
+        },
+        [4] = "Scout"
+    }
+
+    game:GetService("ReplicatedStorage"):WaitForChild("RemoteFunction"):InvokeServer(unpack(args))
+
+        if args[2] == "Pl\208\176ce" then
+            local addedTower
+            local Tower = args[4]
+            local Position = args[3].Position
+
+            addedTower = towers.ChildAdded:Connect(function(tower)
+                totalPlacedTowers = totalPlacedTowers + 1
+                local indexTower = totalPlacedTowers
+                local Index = Instance.new("IntValue", tower)
+                Index.Value = indexTower
+                Index.Name = "index"
+                
+                appendfile(getgenv().StratName..".txt", getgenv().APIVar..":Place("..Tower..", "..Position.X..", "..Position.Y..", "..Position.Z..", "..Wave..", "..getgenv().seconds.."\n");
+                LastLog.Text = "Placed Tower:" .. args[4]
+
+                addedTower:Disconnect()
+            end)
+            print(addedTower)
+]]
+
+
