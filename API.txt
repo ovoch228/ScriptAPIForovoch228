@@ -1,5 +1,4 @@
 local API = {}
-getgenv().seconds = 0 -- not seconds, now 100 millseconds
 --Lobby = 3260590327; Game: 5591597781
 function API:waitMap(map)
     if game.PlaceId == 3260590327 then
@@ -109,14 +108,14 @@ end
     function API:Upgrade(index, wave, seconds)
         while true do
             if game.Players.LocalPlayer.PlayerGui.ReactGameTopGameDisplay.Frame.wave.container.value.Text == tostring(wave) and game:GetService("ReplicatedStorage").State.Timer.Time.Value == seconds then
-                for i, v in workspace.Towers:GetDescendants() do
-                    if v.Name == "index" and v.Value == index then
+                for i, twrs in workspace.Towers:GetDescendants() do
+                    if twrs.Name == "index" and twrs.Value == index then
                         local args = {
                             [1] = "Troops",
                             [2] = "Upgrade",
                             [3] = "Set",
                             [4] = {
-                                ["Troop"] = v.Parent,
+                                ["Troop"] = twrs.Parent,
                                 ["Path"] = 1
                             }
                             }
