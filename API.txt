@@ -75,8 +75,8 @@ end
 
     function API:Place(tower, index, x, y, z, wave, seconds)
             while true do
-                print("place")
                 if game.Players.LocalPlayer.PlayerGui.ReactGameTopGameDisplay.Frame.wave.container.value.Text == tostring(wave) and game:GetService("ReplicatedStorage").State.Timer.Time.Value == seconds then
+                    print("Place")
                     local args = {
                         [1] = "Troops",
                         [2] = "Pl\208\176ce",
@@ -84,14 +84,14 @@ end
                             ["Rotation"] = CFrame.new(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),
                             ["Position"] = Vector3.new(x, y, z)
                         },
-                        [4] = tower
+                        [4] = tostring(tower)
                     }
                 
                     game:GetService("ReplicatedStorage"):WaitForChild("RemoteFunction"):InvokeServer(unpack(args)) 
 
                     local addedTower
-                    addedTower = workspace.Towers.ChildAdded:Connect(function(tower)
-                        local Index = Instance.new("IntValue", tower)
+                    addedTower = workspace.Towers.ChildAdded:Connect(function(Ntower)
+                        local Index = Instance.new("IntValue", Ntower)
                         Index.Value = index
                         Index.Name = "index"
                 
